@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import bankingBg from '../assets/banking-bg.png'
-import bankingSelfServiceImg from '../assets/banking-self-service.png'
+import bankingSelfServiceImg from '../assets/banking-self-service-cover.webp'
 import branchEquipmentImg from '../assets/branch-equipment.png'
 import { SolutionItemButton } from '../components/SolutionItemButton'
 
