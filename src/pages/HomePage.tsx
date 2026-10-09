@@ -54,7 +54,7 @@ export const HomePage: React.FC = () => {
   const navigate = useNavigate()
 
   return (
-    <div className="relative w-full h-full min-h-screen overflow-y-auto overflow-x-hidden bg-[#eef2f4] select-none">
+    <div className="relative w-full h-full pb-safe overflow-y-auto overflow-x-hidden bg-[#eef2f4] select-none">
       {/* Hero */}
       <section
         className="relative w-full overflow-hidden h-[621px] landscape:h-[640px] px-10 sm:px-[80px] pt-[60px]"

@@ -5,6 +5,12 @@
 
 @import "tailwindcss";
 
+/* Breathing room below the last section of every page, plus the device's
+   safe area (rounded corners / gesture bar) when installed fullscreen */
+@utility pb-safe {
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 2rem);
+}
+
 @layer base {
   html, body {
     margin: 0;

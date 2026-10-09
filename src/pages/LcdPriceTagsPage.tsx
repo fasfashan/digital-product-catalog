@@ -65,7 +65,7 @@ const Tagline: React.FC<{ breakBeforeHighlight?: boolean }> = ({ breakBeforeHigh
 )
 
 export const LcdPriceTagsPage: React.FC = () => (
-  <div className="relative w-full h-full min-h-screen bg-white text-slate-900 flex flex-col select-none overflow-y-auto overflow-x-hidden">
+  <div className="relative w-full h-full pb-safe bg-white text-slate-900 flex flex-col select-none overflow-y-auto overflow-x-hidden">
     <BackHeader to="/solutions/retail-signage" label="Back to Retail & Digital Signage Solutions" />
 
     {sections.map((section, index) => {

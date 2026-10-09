@@ -9,7 +9,7 @@ export const TabletSolutionsPage: React.FC = () => {
   const navigate = useNavigate()
 
   return (
-    <div className="relative w-full h-full min-h-screen bg-[#eef2f4] text-slate-900 flex flex-col select-none overflow-y-auto overflow-x-hidden">
+    <div className="relative w-full h-full pb-safe bg-[#eef2f4] text-slate-900 flex flex-col select-none overflow-y-auto overflow-x-hidden">
 
       {/* Sticky Header Navigation */}
       <header className="sticky top-0 z-30 w-full bg-[#eef2f4]/85 backdrop-blur-md border-b border-slate-200/70 px-6 sm:px-10 py-3.5 flex items-center justify-between">

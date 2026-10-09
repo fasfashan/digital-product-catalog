@@ -57,7 +57,7 @@ export const SolutionsPage: React.FC = () => {
 
   return (
     <div
-      className="relative w-full h-full min-h-screen flex flex-col select-none overflow-y-auto overflow-x-hidden text-white"
+      className="relative w-full h-full pb-safe flex flex-col select-none overflow-y-auto overflow-x-hidden text-white"
       style={{
         background: 'radial-gradient(130% 90% at 50% 20%, #00385D 0%, #002841 40%, #001725 75%, #00101A 100%)',
       }}
@@ -87,7 +87,7 @@ export const SolutionsPage: React.FC = () => {
         </button>
       </header>
 
-      <main className="relative z-10 flex-1 w-full max-w-[1200px] mx-auto px-6 sm:px-10 pt-4 pb-6 flex flex-col gap-6 landscape:gap-6 portrait:gap-5">
+      <main className="relative z-10 flex-1 w-full max-w-[1200px] mx-auto px-6 sm:px-10 pt-4 flex flex-col gap-6 landscape:gap-6 portrait:gap-5">
         {/* Heading */}
         <div className="flex flex-col items-center text-center gap-2 animate-fade-in-up">
           <span className="font-['Lato'] text-[13px] font-bold uppercase tracking-[0.2em] text-[#5cc8f5]">

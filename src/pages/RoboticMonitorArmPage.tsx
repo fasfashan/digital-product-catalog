@@ -10,7 +10,7 @@ export const RoboticMonitorArmPage: React.FC = () => {
   const navigate = useNavigate()
 
   return (
-    <div className="relative w-full h-full min-h-screen bg-[#eef2f4] text-slate-900 flex flex-col select-none overflow-y-auto overflow-x-hidden">
+    <div className="relative w-full h-full pb-safe bg-[#eef2f4] text-slate-900 flex flex-col select-none overflow-y-auto overflow-x-hidden">
       {/* Background decoration texture */}
       <img
         src={roboticArmBg}

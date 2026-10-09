@@ -42,7 +42,7 @@ export const MultiDenomCDMPage: React.FC = () => {
   const navigate = useNavigate()
 
   return (
-    <div className="relative min-h-screen w-full overflow-x-hidden bg-[#eef2f4] text-slate-900">
+    <div className="relative h-full w-full overflow-y-auto overflow-x-hidden bg-[#eef2f4] text-slate-900 pb-safe">
       <header className="sticky top-0 z-30 w-full border-b border-slate-200/70 bg-[#eef2f4]/90 px-5 py-3 backdrop-blur-md sm:px-10">
         <div className="mx-auto flex max-w-[1440px] items-center">
           <button

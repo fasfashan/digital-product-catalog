@@ -50,7 +50,7 @@ export const RetailSignageSolutionsPage: React.FC = () => {
   }
 
   return (
-    <div className="relative w-full h-full min-h-screen flex flex-col select-none overflow-y-auto overflow-x-hidden">
+    <div className="relative w-full h-full pb-safe flex flex-col select-none overflow-y-auto overflow-x-hidden">
       {/* Background with tech network graphic */}
       <img
         src={retailBg}

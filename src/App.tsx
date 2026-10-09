@@ -19,7 +19,7 @@ import { RobotGreeterPage } from './pages/RobotGreeterPage'
 export function App() {
   return (
     <HashRouter>
-      <div className="w-full h-full min-h-screen bg-slate-50 flex flex-col">
+      <div className="w-full h-full bg-slate-50 flex flex-col">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/solutions" element={<SolutionsPage />} />
