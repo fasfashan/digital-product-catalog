@@ -1,6 +1,7 @@
 // Per-product copy and QR for the closing CTA (source: "CTA_IKF 2026_Product Catalog on Tablet" PPT).
 // Edit copy here; any text left out falls back to the defaults in CtaSection.
 import qrSmartcs from '../assets/cta/qr-smartcs.png'
+import qrTabletSolutions from '../assets/cta/qr-tablet-solutions.png'
 import qrRoboticArm from '../assets/cta/qr-robotic-arm.png'
 import qrMultiDenomCdm from '../assets/cta/qr-multi-denom-cdm.png'
 import qrCashProcessing from '../assets/cta/qr-cash-processing.png'
@@ -25,9 +26,8 @@ export const ctaContent = {
     qrImage: qrSmartcs,
     qrAlt: 'QR code to the SMARTCS page on murni.co.id',
   },
-  // PPT slide 2 reuses the SMARTCS QR
   tabletSolutions: {
-    qrImage: qrSmartcs,
+    qrImage: qrTabletSolutions,
     qrAlt: 'QR code to the Tablet Solutions page on murni.co.id',
   },
   roboticArm: {
