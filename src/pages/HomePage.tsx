@@ -44,7 +44,7 @@ const differentiators = [
 ]
 
 const stats = [
-  { icon: iconYears, label: '33+ Years of Organic Growth', iconClass: 'h-[32px] w-[25.2px]' },
+  { icon: iconYears, label: '34+ Years of Organic Growth', iconClass: 'h-[32px] w-[25.2px]' },
   { icon: iconStaff, label: '700+ Staff', iconClass: 'h-[32px] w-[33.79px]' },
   { icon: iconEngineers, label: '300+ Engineers', iconClass: 'h-[32px] w-[23.81px]' },
   { icon: iconServicePoints, label: '100+ Service Points Nationwide', iconClass: 'h-[32px] w-[32.03px]' },
