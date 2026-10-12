@@ -3,6 +3,8 @@ import heroImg from '../assets/digital-menu-board-hero.webp'
 import useCasesImg from '../assets/digital-menu-board-usecases.webp'
 import { BackHeader } from '../components/BackHeader'
 import { PriceTag } from '../components/PriceTag'
+import { CtaSection } from '../components/CtaSection'
+import { ctaContent } from '../data/ctaContent'
 
 const benefits = ['Ready-to-use templates', 'Price & promo updates in seconds', '1 outlet or multiple outlets']
 
@@ -60,6 +62,7 @@ export const DigitalMenuBoardPage: React.FC = () => {
           />
         </div>
       </section>
+      <CtaSection {...ctaContent.digitalMenuBoard} />
     </div>
   )
 }

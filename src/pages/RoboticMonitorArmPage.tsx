@@ -5,6 +5,8 @@ import roboticArmContentImg from '../assets/robotic-arm-content.png'
 import successStoryImg from '../assets/robotic-arm-success-story.webp'
 import ergonomicSolutionsImg from '../assets/robotic-arm-ergonomic-solutions.webp'
 import { ShowcaseSection } from '../components/ShowcaseSection'
+import { CtaSection } from '../components/CtaSection'
+import { ctaContent } from '../data/ctaContent'
 
 export const RoboticMonitorArmPage: React.FC = () => {
   const navigate = useNavigate()
@@ -74,6 +76,7 @@ export const RoboticMonitorArmPage: React.FC = () => {
         imageAspect={3064 / 1358}
         background="white"
       />
+      <CtaSection {...ctaContent.roboticArm} />
     </div>
   )
 }

@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import cashProcessingContentImg from '../assets/cash-processing-content.webp'
 import cashProcessingVideo from '../assets/cash-processing-asys-al-series.mp4'
 import { KioskVideo } from '../components/KioskVideo'
+import { CtaSection } from '../components/CtaSection'
+import { ctaContent } from '../data/ctaContent'
 
 export const CashProcessingMachinePage: React.FC = () => {
   const navigate = useNavigate()
@@ -54,6 +56,7 @@ export const CashProcessingMachinePage: React.FC = () => {
           <KioskVideo src={cashProcessingVideo} />
         </div>
       </main>
+      <CtaSection {...ctaContent.cashProcessing} />
     </div>
   )
 }

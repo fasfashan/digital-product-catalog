@@ -3,6 +3,8 @@ import overviewImg from '../assets/ordering-kiosk-overview.webp'
 import optionsImg from '../assets/ordering-kiosk-options.webp'
 import fnbTransformationImg from '../assets/ordering-kiosk-fnb-transformation.webp'
 import { BackHeader } from '../components/BackHeader'
+import { CtaSection } from '../components/CtaSection'
+import { ctaContent } from '../data/ctaContent'
 
 export const OrderingKioskPage: React.FC = () => (
   <div className="relative w-full h-full pb-safe bg-white text-slate-900 flex flex-col select-none overflow-y-auto overflow-x-hidden">
@@ -46,6 +48,7 @@ export const OrderingKioskPage: React.FC = () => (
         />
       </div>
     </section>
+    <CtaSection {...ctaContent.orderingKiosk} />
   </div>
 )
 

@@ -4,6 +4,8 @@ import convenienceImg from '../assets/digital-banner-convenience.webp'
 import supermarketImg from '../assets/digital-banner-supermarket.webp'
 import { BackHeader } from '../components/BackHeader'
 import { PriceTag } from '../components/PriceTag'
+import { CtaSection } from '../components/CtaSection'
+import { ctaContent } from '../data/ctaContent'
 
 const sections = [
   {
@@ -61,6 +63,7 @@ export const DigitalBannerPage: React.FC = () => (
         </div>
       </section>
     ))}
+    <CtaSection {...ctaContent.digitalBanner} />
   </div>
 )
 

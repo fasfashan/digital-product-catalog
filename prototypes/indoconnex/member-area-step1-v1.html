@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="id" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IndoConnex Member Area — Step 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<style>
+  /* ============================================================
+     TOKENS — nama = variable Figma "IndoConnex - UI Library / Semantic"
+     Light = nilai asli Light.tokens.json
+     Dark  = nilai asli Dark.tokens.json, kecuali yang ditandai USULAN
+     ============================================================ */
+  :root, [data-theme="light"] {
+    --surface-page: #F8FAFC;            /* surface/page            slate/50  */
+    --surface-raised: #FFFFFF;          /* surface/raised          white     */
+    --surface-sunken: #F1F5F9;          /* surface/sunken          slate/100 */
+    --surface-hover: #F1F5F9;           /* surface/hover           slate/100 */
+    --surface-primary-subtle: #CCD7DF;  /* surface/primary-subtle  blue/50   */
+    --text-primary: #020618;            /* text/primary            slate/950 */
+    --text-secondary: #314158;          /* text/secondary          slate/700 */
+    --text-muted: #62748E;              /* text/muted              slate/500 */
+    --text-placeholder: #90A1B9;        /* text/placeholder        slate/400 */
+    --text-link: #00355E;               /* text/link               blue/500  */
+    --text-on-primary: #FFFFFF;         /* text/on-primary         white     */
+    --border-subtle: #F1F5F9;           /* border/subtle           slate/100 */
+    --border-default: #CAD5E2;          /* border/default          slate/300 */
+    --border-strong: #90A1B9;           /* border/strong           slate/400 */
+    --border-focus: #00355E;            /* border/focus            blue/500  */
+    --action-primary: #00355E;          /* action/primary/default  blue/500  */
+    --action-primary-hover: #002C4E;    /* action/primary/hover    blue/600  */
+    --action-neutral: #FFFFFF;          /* action/neutral/default  white     */
+    --action-neutral-hover: #F1F5F9;    /* action/neutral/hover    slate/100 */
+    --success-surface: #F0FDF4;         /* feedback/success/surface */
+    --success-border: #B9F8CF;          /* feedback/success/border  */
+    --success-text: #008236;            /* feedback/success/text    */
+    --success-solid: #00A63E;           /* feedback/success/solid   */
+    --warning-surface: #FFFBEB;         /* feedback/warning/surface */
+    --warning-border: #FEE685;          /* feedback/warning/border  */
+    --warning-text: #BB4D00;            /* feedback/warning/text    */
+    --danger-surface: #FEF2F2;          /* feedback/danger/surface  */
+    --danger-border: #FFC9C9;           /* feedback/danger/border   */
+    --danger-text: #C10007;             /* feedback/danger/text     */
+    --icon-secondary: #6A7282;          /* icon/secondary           */
+    --brand-red: #ED1846;               /* brand/red                */
+    --logo-connex: #00355E;
+  }
+  [data-theme="dark"] {
+    --surface-page: #020618;            /* surface/page            slate/950 */
+    --surface-raised: #0F172B;          /* USULAN: asli #1D293D (slate/800) -> slate/900, supaya beda dari hover & border/subtle */
+    --surface-sunken: #1D293D;          /* surface/sunken          slate/800 */
+    --surface-hover: #1D293D;           /* surface/hover           slate/800 */
+    --surface-primary-subtle: #001A2F;  /* surface/primary-subtle  blue/800  */
+    --text-primary: #F8FAFC;
+    --text-secondary: #CAD5E2;
+    --text-muted: #90A1B9;
+    --text-placeholder: #62748E;
+    --text-link: #CCD7DF;
+    --text-on-primary: #000000;
+    --border-subtle: #1D293D;
+    --border-default: #314158;
+    --border-strong: #62748E;
+    --border-focus: #809AAE;            /* USULAN: asli #2A5779 (1.9:1, gagal WCAG 2.2) -> blue/200 */
+    --action-primary: #CCD7DF;
+    --action-primary-hover: #809AAE;
+    --action-neutral: #1D293D;
+    --action-neutral-hover: #314158;
+    --success-surface: #052E16;
+    --success-border: #016630;
+    --success-text: #7BF1A8;
+    --success-solid: #00C951;
+    --warning-surface: #461901;
+    --warning-border: #973C00;
+    --warning-text: #FFD230;
+    --danger-surface: #460809;
+    --danger-border: #9F0712;
+    --danger-text: #FFA2A2;
+    --icon-secondary: #99A1AF;
+    --brand-red: #ED1846;
+    --logo-connex: #F8FAFC;
+  }
+
+  html, body { background: var(--surface-page); color: var(--text-primary); }
+  body { font-family: Inter, ui-sans-serif, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  :focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; border-radius: 8px; }
+  [data-lucide] { width: 20px; height: 20px; stroke-width: 1.75; flex-shrink: 0; }
+  .ic-16 [data-lucide], [data-lucide].ic-16 { width: 16px; height: 16px; }
+  .skeleton { background: var(--surface-hover); border-radius: 8px; animation: pulse 1.4s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: .5; } }
+  .scroll-thin::-webkit-scrollbar { width: 8px; }
+  .scroll-thin::-webkit-scrollbar-thumb { background: var(--border-default); border-radius: 8px; }
+</style>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          'surface-page': 'var(--surface-page)',
+          'surface-raised': 'var(--surface-raised)',
+          'surface-sunken': 'var(--surface-sunken)',
+          'surface-hover': 'var(--surface-hover)',
+          'surface-primary-subtle': 'var(--surface-primary-subtle)',
+          'tx-primary': 'var(--text-primary)',
+          'tx-secondary': 'var(--text-secondary)',
+          'tx-muted': 'var(--text-muted)',
+          'tx-placeholder': 'var(--text-placeholder)',
+          'tx-link': 'var(--text-link)',
+          'tx-on-primary': 'var(--text-on-primary)',
+          'bd-subtle': 'var(--border-subtle)',
+          'bd-default': 'var(--border-default)',
+          'bd-strong': 'var(--border-strong)',
+          'act-primary': 'var(--action-primary)',
+          'act-primary-hover': 'var(--action-primary-hover)',
+          'act-neutral': 'var(--action-neutral)',
+          'act-neutral-hover': 'var(--action-neutral-hover)',
+          'ok-surface': 'var(--success-surface)', 'ok-border': 'var(--success-border)', 'ok-text': 'var(--success-text)', 'ok-solid': 'var(--success-solid)',
+          'warn-surface': 'var(--warning-surface)', 'warn-border': 'var(--warning-border)', 'warn-text': 'var(--warning-text)',
+          'err-surface': 'var(--danger-surface)', 'err-border': 'var(--danger-border)', 'err-text': 'var(--danger-text)',
+          'ic-secondary': 'var(--icon-secondary)',
+          'brand-red': 'var(--brand-red)',
+        }
+      }
+    }
+  }
+</script>
+</head>
+<body class="min-h-screen text-sm">
+
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 bg-surface-raised px-4 py-2 rounded-lg">Lewati ke konten</a>
+
+<!-- ================= TOP BAR (56px) ================= -->
+<header class="fixed top-0 inset-x-0 z-30 h-14 bg-surface-raised border-b border-bd-default">
+  <div class="h-full flex items-center gap-2 px-3 lg:px-4">
+    <button id="btnDrawer" class="md:hidden h-11 w-11 grid place-items-center rounded-full hover:bg-surface-hover text-tx-secondary" aria-label="Buka menu"><i data-lucide="menu"></i></button>
+    <a href="#" class="flex items-center gap-2 shrink-0 pr-2 lg:w-[232px]" aria-label="IndoConnex beranda" data-nav="dashboard">
+      <span class="text-[18px] font-extrabold tracking-tight leading-none"><span class="text-brand-red">INDO</span><span style="color:var(--logo-connex)">CONNEX</span></span>
+    </a>
+
+    <div class="flex-1 flex justify-center min-w-0">
+      <label class="relative w-full max-w-[560px] hidden sm:block">
+        <span class="sr-only">Cari di IndoConnex</span>
+        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-tx-muted ic-16"><i data-lucide="search"></i></span>
+        <input type="search" placeholder="Cari bisnis, lowongan, produk, orang…" class="w-full h-10 pl-9 pr-10 rounded-full bg-surface-sunken border border-transparent hover:border-bd-default focus:border-bd-strong focus:bg-surface-raised outline-none placeholder:text-tx-placeholder text-tx-primary">
+        <kbd class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-tx-muted border border-bd-default rounded px-1.5 leading-5">/</kbd>
+      </label>
+    </div>
+
+    <div class="flex items-center gap-1">
+      <button class="sm:hidden h-11 w-11 grid place-items-center rounded-full hover:bg-surface-hover text-tx-secondary" aria-label="Cari"><i data-lucide="search"></i></button>
+      <div class="relative">
+        <button id="btnCreate" aria-haspopup="menu" aria-expanded="false" class="hidden md:inline-flex h-10 items-center gap-1.5 pl-3 pr-4 rounded-full border border-bd-default bg-act-neutral hover:bg-act-neutral-hover font-medium text-tx-primary">
+          <i data-lucide="plus"></i>Buat
+        </button>
+        <div id="menuCreate" role="menu" class="hidden absolute right-0 mt-2 w-[320px] bg-surface-raised border border-bd-default rounded-xl shadow-lg p-2"></div>
+      </div>
+      <div class="relative">
+        <button id="btnNotif" aria-haspopup="dialog" aria-expanded="false" class="h-11 w-11 md:h-10 md:w-10 grid place-items-center rounded-full hover:bg-surface-hover text-tx-secondary" aria-label="Notifikasi"><i data-lucide="bell"></i></button>
+        <div id="menuNotif" class="hidden absolute right-0 mt-2 w-[320px] bg-surface-raised border border-bd-default rounded-xl shadow-lg"></div>
+      </div>
+      <div class="relative">
+        <button id="btnAvatar" aria-haspopup="menu" aria-expanded="false" class="h-11 md:h-10 flex items-center gap-1 pl-1 pr-1 md:pr-2 rounded-full hover:bg-surface-hover" aria-label="Menu akun Rina Hartono">
+          <span class="h-8 w-8 rounded-full bg-surface-primary-subtle text-tx-link grid place-items-center text-xs font-bold">RH</span>
+          <span class="hidden md:block text-tx-muted ic-16"><i data-lucide="chevron-down"></i></span>
+        </button>
+        <div id="menuAvatar" role="menu" class="hidden absolute right-0 mt-2 w-[260px] bg-surface-raised border border-bd-default rounded-xl shadow-lg p-2"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= SIDEBAR ================= -->
+<aside id="sidebar" class="hidden md:flex fixed top-14 bottom-0 left-0 z-20 flex-col md:w-[72px] lg:w-64 bg-surface-raised border-r border-bd-default overflow-y-auto scroll-thin" aria-label="Navigasi utama">
+  <nav class="p-3 flex flex-col gap-1" id="navMain"></nav>
+  <div class="mx-3 border-t border-bd-default"></div>
+  <div class="p-3 hidden lg:block">
+    <p class="px-3 pb-2 text-xs font-medium text-tx-muted uppercase tracking-wide">Bantuan</p>
+    <a href="#" class="h-10 flex items-center gap-3 px-3 rounded-lg text-tx-secondary hover:bg-surface-hover"><i data-lucide="circle-help"></i>Pusat Bantuan</a>
+    <a href="#" class="h-10 flex items-center gap-3 px-3 rounded-lg text-tx-secondary hover:bg-surface-hover"><i data-lucide="message-square-warning"></i>Laporkan masalah</a>
+  </div>
+  <div class="mt-auto p-4 hidden lg:block text-xs text-tx-muted leading-5">
+    <a href="#" class="hover:underline">Syarat</a> · <a href="#" class="hover:underline">Privasi</a> · <a href="#" class="hover:underline">Tentang</a><br>© 2026 IndoConnex
+  </div>
+</aside>
+
+<!-- Mobile drawer -->
+<div id="drawer" class="hidden md:hidden fixed inset-0 z-40">
+  <div class="absolute inset-0 bg-black/40" data-close-drawer></div>
+  <div class="absolute top-0 bottom-0 left-0 w-[288px] bg-surface-raised p-3 flex flex-col overflow-y-auto">
+    <div class="flex items-center justify-between h-12 px-2">
+      <span class="text-[18px] font-extrabold tracking-tight"><span class="text-brand-red">INDO</span><span style="color:var(--logo-connex)">CONNEX</span></span>
+      <button class="h-11 w-11 grid place-items-center rounded-full hover:bg-surface-hover" aria-label="Tutup menu" data-close-drawer><i data-lucide="x"></i></button>
+    </div>
+    <nav class="flex flex-col gap-1 mt-2" id="navDrawer"></nav>
+    <div class="my-3 border-t border-bd-default"></div>
+    <div id="utilDrawer" class="flex flex-col gap-1"></div>
+  </div>
+</div>
+
+<!-- ================= MAIN ================= -->
+<main id="main" class="pt-14 pb-24 md:pb-10 md:pl-[72px] lg:pl-64">
+  <div id="page" class="mx-auto max-w-[1104px] px-4 md:px-6 py-6"></div>
+</main>
+
+<!-- Mobile bottom nav -->
+<nav id="bottomNav" class="md:hidden fixed bottom-0 inset-x-0 z-30 h-16 bg-surface-raised border-t border-bd-default grid grid-cols-5" aria-label="Navigasi bawah"></nav>
+
+<!-- Toast -->
+<div id="toast" role="status" aria-live="polite" class="fixed left-1/2 -translate-x-1/2 bottom-20 md:bottom-6 z-50 hidden px-4 py-3 rounded-xl bg-[var(--text-primary)] text-[var(--surface-page)] text-sm font-medium shadow-lg max-w-[90vw]"></div>
+
+<!-- ================= PROTO CONTROLS (bukan bagian desain) ================= -->
+<div id="proto" class="fixed right-3 bottom-20 md:bottom-4 z-50 text-xs">
+  <button id="protoToggle" class="ml-auto flex items-center gap-1.5 h-9 px-3 rounded-full bg-[#7C3AED] text-white font-medium shadow-lg"><i data-lucide="sliders-horizontal" class="ic-16"></i>Proto controls</button>
+  <div id="protoPanel" class="hidden mt-2 w-[268px] rounded-xl bg-white text-slate-900 border border-slate-200 shadow-xl p-3 space-y-3">
+    <p class="text-[11px] text-slate-500">Panel ini cuma buat testing, bukan bagian desain.</p>
+    <div><p class="font-bold mb-1">Arah desain</p><div class="grid grid-cols-2 gap-1" data-group="dir">
+      <button data-v="A" class="h-8 rounded-md border">A · Checklist</button><button data-v="B" class="h-8 rounded-md border">B · Intent</button></div></div>
+    <div><p class="font-bold mb-1">State dashboard</p><div class="grid grid-cols-2 gap-1" data-group="status">
+      <button data-v="new" class="h-8 rounded-md border">Member baru</button><button data-v="partial" class="h-8 rounded-md border">Sebagian</button>
+      <button data-v="loading" class="h-8 rounded-md border">Loading</button><button data-v="error" class="h-8 rounded-md border">Error</button></div></div>
+    <div><p class="font-bold mb-1">Tema</p><div class="grid grid-cols-2 gap-1" data-group="theme">
+      <button data-v="light" class="h-8 rounded-md border">Light</button><button data-v="dark" class="h-8 rounded-md border">Dark (preview)</button></div></div>
+  </div>
+</div>
+
+<script>
+const S = { dir:'A', status:'new', theme:'light', page:'dashboard', checklistHidden:false, done:new Set(['email']), following:new Set() };
+
+const NAV = [
+  { id:'dashboard', label:'Beranda',  icon:'house' },
+  { id:'explore',   label:'Jelajah',  icon:'compass' },
+  { id:'manage',    label:'Kelola',   icon:'briefcase-business' },
+  { id:'network',   label:'Jaringan', icon:'users' },
+  { id:'saved',     label:'Tersimpan',icon:'bookmark' },
+  { id:'learning',  label:'Belajar',  icon:'graduation-cap' },
+];
+const BOTTOM = ['dashboard','explore','create','manage','network'];
+const UTIL = [
+  { label:'Lihat profil', icon:'user-round' },
+  { label:'Akun & Privasi', icon:'settings' },
+  { label:'Perangkat & sesi', icon:'monitor-smartphone' },
+  { label:'Bantuan & dukungan', icon:'circle-help' },
+];
+const CREATE = [
+  { icon:'message-square-plus', t:'Post', d:'Bagikan kabar atau pertanyaan' },
+  { icon:'tag', t:'Listing', d:'Barang, kendaraan, properti, produk & jasa' },
+  { icon:'briefcase', t:'Peluang', d:'Lowongan kerja atau tender' },
+  { icon:'store', t:'Halaman', d:'Bisnis, tempat, komunitas, charity' },
+];
+const STEPS = [
+  { id:'email',    t:'Verifikasi email', d:'rina.hartono@gmail.com sudah terverifikasi.', cta:'', time:'' },
+  { id:'profile',  t:'Lengkapi profil', d:'Tambah foto, headline, dan kota supaya orang lain lebih percaya.', cta:'Lengkapi profil', time:'2 menit' },
+  { id:'business', t:'Buat Business Page', d:'Halaman resmi bisnismu, biar bisa ditemukan buyer dan partner.', cta:'Buat halaman', time:'5 menit' },
+  { id:'listing',  t:'Pasang produk atau listing pertama', d:'Tampilkan apa yang kamu jual atau tawarkan.', cta:'Pasang listing', time:'3 menit' },
+  { id:'follow',   t:'Ikuti 3 bisnis atau komunitas', d:'Biar beranda kamu terisi kabar yang relevan.', cta:'Cari untuk diikuti', time:'1 menit' },
+];
+const INTENTS = [
+  { icon:'store', t:'Bisnis saya ingin ditemukan', d:'Buat Business Page dan tampil di direktori', cta:'Buat Business Page' },
+  { icon:'tag', t:'Saya mau menjual sesuatu', d:'Barang, kendaraan, properti, atau produk & jasa', cta:'Pasang listing' },
+  { icon:'user-search', t:'Saya sedang cari karyawan', d:'Pasang lowongan dan kelola pelamar', cta:'Pasang lowongan' },
+  { icon:'briefcase', t:'Saya sedang cari kerja', d:'Atur preferensi dan simpan lowongan', cta:'Atur preferensi' },
+  { icon:'handshake', t:'Saya cari partner atau tender', d:'Jelajahi peluang bisnis dan tender aktif', cta:'Jelajahi peluang' },
+];
+const SUGGEST = [
+  { ini:'RN', t:'Rempah Nusantara Trading', d:'Ekspor & Impor · Surabaya', f:'1,2 rb pengikut' },
+  { ini:'DM', t:'Diaspora Indonesia Melbourne', d:'Komunitas · Melbourne, AU', f:'3,4 rb anggota' },
+  { ini:'JT', t:'Jepara Teak Furniture', d:'Manufaktur · Jepara', f:'856 pengikut' },
+];
+
+const $ = s => document.querySelector(s);
+const icons = () => lucide.createIcons();
+function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.remove('hidden'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.add('hidden'),2600); }
+
+/* ---------- SHELL ---------- */
+function navItem(n, compact){
+  const active = S.page===n.id;
+  return `<a href="#" data-nav="${n.id}" ${active?'aria-current="page"':''}
+    class="h-10 flex items-center gap-3 rounded-lg ${compact?'md:justify-center lg:justify-start':''} px-3 font-medium
+    ${active?'bg-surface-hover text-tx-primary':'text-tx-secondary hover:bg-surface-hover hover:text-tx-primary'}" title="${n.label}">
+    <i data-lucide="${n.icon}"></i><span class="${compact?'md:hidden lg:inline':''}">${n.label}</span></a>`;
+}
+function renderShell(){
+  $('#navMain').innerHTML = NAV.map(n=>navItem(n,true)).join('');
+  $('#navDrawer').innerHTML = NAV.map(n=>navItem(n,false)).join('');
+  $('#utilDrawer').innerHTML = UTIL.map(u=>`<a href="#" class="h-11 flex items-center gap-3 px-3 rounded-lg text-tx-secondary hover:bg-surface-hover"><i data-lucide="${u.icon}"></i>${u.label}</a>`).join('')
+    + `<a href="#" class="h-11 flex items-center gap-3 px-3 rounded-lg text-err-text hover:bg-surface-hover"><i data-lucide="log-out"></i>Keluar</a>`;
+  $('#bottomNav').innerHTML = BOTTOM.map(id=>{
+    if(id==='create') return `<button data-open-create class="flex flex-col items-center justify-center gap-0.5 text-[11px] font-medium text-tx-secondary" aria-label="Buat">
+      <span class="h-8 w-12 rounded-full bg-act-primary text-tx-on-primary grid place-items-center"><i data-lucide="plus"></i></span>Buat</button>`;
+    const n=NAV.find(x=>x.id===id), a=S.page===id;
+    return `<a href="#" data-nav="${id}" ${a?'aria-current="page"':''} class="flex flex-col items-center justify-center gap-0.5 text-[11px] font-medium ${a?'text-tx-primary':'text-tx-muted'}">
+      <i data-lucide="${n.icon}"></i>${n.label}</a>`;
+  }).join('');
+  $('#menuCreate').innerHTML = CREATE.map(c=>`<button role="menuitem" data-create="${c.t}" class="w-full flex items-start gap-3 p-3 rounded-lg hover:bg-surface-hover text-left">
+      <span class="h-9 w-9 shrink-0 rounded-lg bg-surface-sunken grid place-items-center text-tx-secondary"><i data-lucide="${c.icon}"></i></span>
+      <span><span class="block font-medium text-tx-primary">${c.t}</span><span class="block text-xs text-tx-muted">${c.d}</span></span></button>`).join('')
+    + `<p class="px-3 pt-2 pb-1 text-xs text-tx-muted border-t border-bd-default mt-1">Alur lengkap dikerjakan di Step 4.</p>`;
+  $('#menuAvatar').innerHTML = `<div class="flex items-center gap-3 p-3"><span class="h-10 w-10 rounded-full bg-surface-primary-subtle text-tx-link grid place-items-center text-sm font-bold">RH</span>
+      <span><span class="block font-medium">Rina Hartono</span><span class="block text-xs text-tx-muted">Member sejak Okt 2026</span></span></div>
+      <div class="border-t border-bd-default my-1"></div>`
+    + UTIL.map(u=>`<a href="#" role="menuitem" class="h-10 flex items-center gap-3 px-3 rounded-lg text-tx-secondary hover:bg-surface-hover">${`<i data-lucide="${u.icon}"></i>`}${u.label}</a>`).join('')
+    + `<div class="border-t border-bd-default my-1"></div><a href="#" role="menuitem" class="h-10 flex items-center gap-3 px-3 rounded-lg text-err-text hover:bg-surface-hover"><i data-lucide="log-out"></i>Keluar</a>`;
+  $('#menuNotif').innerHTML = `<div class="flex items-center justify-between px-4 h-12 border-b border-bd-default"><span class="font-bold">Notifikasi</span></div>
+    <div class="p-6 text-center"><span class="mx-auto h-10 w-10 rounded-full bg-surface-sunken grid place-items-center text-tx-muted mb-2"><i data-lucide="bell-off"></i></span>
+    <p class="font-medium">Belum ada notifikasi</p><p class="text-xs text-tx-muted mt-1">Kabar soal halaman, listing, dan jaringanmu akan muncul di sini.</p></div>`;
+}
+
+/* ---------- PIECES ---------- */
+const card = (inner, cls='') => `<section class="bg-surface-raised border border-bd-default rounded-xl ${cls}">${inner}</section>`;
+const btnPrimary = (label, attrs='') => `<button ${attrs} class="h-11 md:h-10 px-4 rounded-full bg-act-primary hover:bg-act-primary-hover text-tx-on-primary font-medium inline-flex items-center gap-1.5">${label}</button>`;
+const btnSecondary = (label, attrs='') => `<button ${attrs} class="h-11 md:h-10 px-4 rounded-full border border-bd-default bg-act-neutral hover:bg-act-neutral-hover text-tx-primary font-medium inline-flex items-center gap-1.5">${label}</button>`;
+const progress = () => { const k=STEPS.filter(s=>S.done.has(s.id)).length; return { k, n:STEPS.length, pct:Math.round(k/STEPS.length*100) }; };
+const bar = pct => `<div class="h-2 rounded-full bg-surface-sunken overflow-hidden" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><div class="h-full rounded-full bg-ok-solid transition-all" style="width:${pct}%"></div></div>`;
+const nextStep = () => STEPS.find(s=>!S.done.has(s.id));
+
+function stepIcon(s, i){
+  return S.done.has(s.id)
+    ? `<span class="h-7 w-7 shrink-0 rounded-full bg-ok-solid text-white grid place-items-center ic-16"><i data-lucide="check"></i></span>`
+    : `<span class="h-7 w-7 shrink-0 rounded-full border-2 border-bd-default text-tx-muted grid place-items-center text-xs font-bold">${i+1}</span>`;
+}
+
+function checklistDone(compact){
+  return card(`<div class="${compact?'p-4':'p-5'} flex items-start gap-3">
+    <span class="h-10 w-10 shrink-0 rounded-full bg-ok-surface text-ok-text grid place-items-center"><i data-lucide="party-popper"></i></span>
+    <div class="flex-1"><h2 class="font-bold text-base">Akun kamu siap!</h2><p class="text-tx-muted mt-0.5">Semua langkah awal selesai. Pantau status konten kamu di menu Kelola.</p>
+    <div class="mt-3 flex gap-2">${btnSecondary('Buka Kelola','data-nav="manage"')}<button data-hide-checklist class="h-10 px-3 rounded-full text-tx-muted hover:bg-surface-hover font-medium">Tutup</button></div></div></div>`);
+}
+
+function checklistFull(){
+  const p=progress(), nx=nextStep();
+  if(!nx) return checklistDone(false);
+  return card(`
+    <div class="p-5 pb-4">
+      <div class="flex items-start justify-between gap-3">
+        <div><p class="text-xs font-medium text-tx-muted uppercase tracking-wide">Mulai di sini</p>
+          <h2 class="text-lg font-bold leading-7 mt-0.5">Siapkan akun kamu dalam ±10 menit</h2></div>
+        <button data-hide-checklist class="h-9 px-3 rounded-full text-tx-muted hover:bg-surface-hover text-xs font-medium shrink-0">Sembunyikan</button>
+      </div>
+      <div class="mt-3 flex items-center gap-3"><div class="flex-1">${bar(p.pct)}</div><span class="text-xs font-medium text-tx-secondary whitespace-nowrap">${p.k} dari ${p.n} selesai</span></div>
+    </div>
+    <ol class="border-t border-bd-default">
+      ${STEPS.map((s,i)=>{
+        const done=S.done.has(s.id), isNext=nx.id===s.id;
+        if(isNext) return `<li class="px-5 py-4 bg-surface-sunken/60 border-b border-bd-default last:border-0 flex gap-3">
+            ${stepIcon(s,i)}<div class="flex-1 min-w-0"><p class="font-bold text-tx-primary">${s.t}</p><p class="text-tx-secondary mt-0.5">${s.d}</p>
+            <div class="mt-3 flex flex-wrap items-center gap-3">${btnPrimary(s.cta+' <i data-lucide="arrow-right" class="ic-16"></i>',`data-do-step="${s.id}"`)}<span class="text-xs text-tx-muted inline-flex items-center gap-1 ic-16"><i data-lucide="clock"></i>${s.time}</span></div></div></li>`;
+        return `<li class="px-5 min-h-14 py-2.5 border-b border-bd-default last:border-0 flex items-center gap-3">
+            ${stepIcon(s,i)}<p class="flex-1 min-w-0 ${done?'text-tx-muted':'text-tx-primary font-medium'}">${s.t}</p>
+            ${done?`<span class="text-xs font-medium text-ok-text">Selesai</span>`:`<button data-do-step="${s.id}" class="h-9 px-3 rounded-full hover:bg-surface-hover text-tx-link font-medium text-xs inline-flex items-center gap-1">Mulai<i data-lucide="chevron-right" class="ic-16"></i></button>`}</li>`;
+      }).join('')}
+    </ol>`);
+}
+
+function checklistCompact(){
+  const p=progress(), nx=nextStep();
+  if(!nx) return checklistDone(true);
+  return card(`<div class="p-4">
+      <div class="flex items-center justify-between"><h2 class="font-bold">Persiapan akun</h2><span class="text-xs font-medium text-tx-secondary">${p.k}/${p.n}</span></div>
+      <div class="mt-2">${bar(p.pct)}</div>
+      <ul class="mt-3 space-y-1">
+        ${STEPS.map((s,i)=>`<li><button ${S.done.has(s.id)?'disabled':`data-do-step="${s.id}"`} class="w-full min-h-10 flex items-center gap-2.5 px-2 rounded-lg text-left ${S.done.has(s.id)?'':'hover:bg-surface-hover'} ${nx.id===s.id?'bg-surface-sunken':''}">
+          ${stepIcon(s,i).replace('h-7 w-7','h-6 w-6')}<span class="flex-1 ${S.done.has(s.id)?'text-tx-muted line-through':'text-tx-primary'} ${nx.id===s.id?'font-medium':''}">${s.t}</span>
+          ${nx.id===s.id?`<span class="text-tx-link ic-16"><i data-lucide="arrow-right"></i></span>`:''}</button></li>`).join('')}
+      </ul></div>`);
+}
+
+function myContent(){
+  const has = S.done.has('business');
+  const head = `<div class="px-5 h-14 flex items-center justify-between border-b border-bd-default"><h2 class="font-bold text-base">Konten saya</h2>
+    <a href="#" data-nav="manage" class="text-xs font-medium text-tx-link hover:underline">Buka Kelola</a></div>`;
+  if(!has) return card(head + `<div class="px-5 py-8 text-center">
+      <span class="mx-auto h-12 w-12 rounded-full bg-surface-sunken grid place-items-center text-tx-muted"><i data-lucide="layers"></i></span>
+      <p class="font-bold mt-3">Belum ada konten</p>
+      <p class="text-tx-muted mt-1 max-w-[360px] mx-auto">Halaman, listing, lowongan, dan artikel yang kamu buat akan muncul di sini, lengkap dengan statusnya.</p>
+      <div class="mt-4">${btnSecondary('<i data-lucide="plus" class="ic-16"></i>Buat konten pertama','data-open-create')}</div></div>`);
+  return card(head + `<ul>
+    <li class="px-5 py-3 flex items-center gap-3 border-b border-bd-default">
+      <span class="h-10 w-10 shrink-0 rounded-lg bg-white border border-bd-default grid place-items-center text-xs font-extrabold text-[#7A3E1D]">NK</span>
+      <div class="flex-1 min-w-0"><p class="font-medium truncate">Nusantara Kopi Roastery</p><p class="text-xs text-tx-muted">Business Page · dikirim 2 jam lalu</p></div>
+      <span class="hidden sm:inline-flex h-6 items-center px-2 rounded-full bg-warn-surface border border-warn-border text-warn-text text-xs font-medium">Menunggu review</span>
+      <button class="h-9 w-9 grid place-items-center rounded-full hover:bg-surface-hover text-tx-muted" aria-label="Opsi"><i data-lucide="ellipsis"></i></button></li>
+    <li class="px-5 py-3 text-xs text-tx-muted">Review biasanya selesai dalam 1×24 jam. Kami kabari lewat notifikasi.</li></ul>`);
+}
+
+function suggestions(){
+  return card(`<div class="px-5 h-14 flex items-center justify-between border-b border-bd-default"><div><h2 class="font-bold text-base">Ikuti untuk mengisi beranda</h2></div></div>
+    <ul>${SUGGEST.map(s=>{ const on=S.following.has(s.t); return `<li class="px-5 py-3 flex items-center gap-3 border-b border-bd-default last:border-0">
+      <span class="h-10 w-10 shrink-0 rounded-full bg-surface-primary-subtle text-tx-link grid place-items-center text-xs font-bold">${s.ini}</span>
+      <div class="flex-1 min-w-0"><p class="font-medium truncate">${s.t}</p><p class="text-xs text-tx-muted truncate">${s.d} · ${s.f}</p></div>
+      <button data-follow="${s.t}" aria-pressed="${on}" class="h-9 px-4 rounded-full font-medium text-xs ${on?'border border-bd-default text-tx-secondary hover:bg-surface-hover':'bg-act-primary text-tx-on-primary hover:bg-act-primary-hover'}">${on?'Mengikuti':'Ikuti'}</button></li>`;}).join('')}</ul>
+    <div class="px-5 py-3 border-t border-bd-default"><a href="#" data-nav="explore" class="text-xs font-medium text-tx-link hover:underline">Lihat rekomendasi lainnya</a></div>`);
+}
+
+function profileCard(){
+  const pct = S.done.has('profile') ? 85 : 20;
+  return card(`<div class="h-14 rounded-t-xl bg-gradient-to-r from-[#00355E] to-[#348AC6]"></div>
+    <div class="px-4 pb-4 -mt-6">
+      <span class="h-12 w-12 rounded-full bg-surface-primary-subtle text-tx-link grid place-items-center font-bold ring-4 ring-[var(--surface-raised)]">RH</span>
+      <p class="font-bold text-base mt-2">Rina Hartono</p>
+      <p class="text-tx-muted">${S.done.has('profile')?'Owner, Nusantara Kopi Roastery · Bandung':'Belum ada headline'}</p>
+      <div class="mt-3 flex items-center justify-between text-xs"><span class="text-tx-secondary">Kelengkapan profil</span><span class="font-bold">${pct}%</span></div>
+      <div class="mt-1.5">${bar(pct)}</div>
+      ${S.done.has('profile')?'':`<button data-do-step="profile" class="mt-3 w-full h-10 rounded-full border border-bd-default hover:bg-surface-hover font-medium">Lengkapi profil</button>`}
+    </div>`);
+}
+
+function helpCard(){
+  return card(`<div class="p-4"><h2 class="font-bold">Butuh bantuan?</h2>
+    <ul class="mt-2 space-y-1">
+      ${['Cara membuat Business Page','Kenapa listing perlu di-review?','Tips foto produk yang menarik'].map(t=>`<li><a href="#" class="min-h-10 flex items-center justify-between gap-2 px-2 -mx-2 rounded-lg hover:bg-surface-hover text-tx-secondary">${t}<i data-lucide="chevron-right" class="ic-16 text-tx-muted"></i></a></li>`).join('')}
+    </ul></div>`);
+}
+
+const railFooter = `<p class="text-xs text-tx-muted leading-5 px-1">Pusat Bantuan · Syarat · Privasi<br>© 2026 IndoConnex · PT Murni Solusindo Nusantara</p>`;
+
+function greeting(sub){
+  return `<div class="mb-5"><p class="text-xs font-medium text-tx-muted">Senin, 12 Oktober 2026</p>
+    <h1 class="text-xl md:text-2xl font-bold leading-8 mt-1">Selamat datang, Rina</h1><p class="text-tx-secondary mt-1">${sub}</p></div>`;
+}
+
+/* ---------- DASHBOARD: DIRECTIONS ---------- */
+function dashA(){
+  const showCL = !S.checklistHidden;
+  return `<div class="flex gap-6 items-start">
+    <div class="flex-1 min-w-0 max-w-[736px] space-y-4">
+      ${greeting(S.done.has('business')?'Business Page kamu sedang direview. Lanjutkan langkah berikutnya sambil menunggu.':'Akun kamu sudah aktif. Selesaikan beberapa langkah ini supaya bisnismu bisa ditemukan.')}
+      ${showCL?checklistFull():`<button data-show-checklist class="text-xs font-medium text-tx-link hover:underline">Tampilkan lagi panduan persiapan akun</button>`}
+      ${myContent()}
+      ${suggestions()}
+    </div>
+    <aside class="hidden xl:block w-80 shrink-0 space-y-4 sticky top-20">${profileCard()}${helpCard()}${railFooter}</aside>
+  </div>`;
+}
+
+function dashB(){
+  const showCL = !S.checklistHidden;
+  return `<div class="flex gap-6 items-start">
+    <div class="flex-1 min-w-0 max-w-[736px] space-y-4">
+      ${greeting('Apa yang ingin kamu lakukan di IndoConnex hari ini?')}
+      ${showCL?`<div class="xl:hidden">${checklistCompact()}</div>`:''}
+      ${card(`<div class="px-5 h-14 flex items-center border-b border-bd-default"><h2 class="font-bold text-base">Mulai dari tujuanmu</h2></div>
+        <ul>${INTENTS.map(it=>`<li class="border-b border-bd-default last:border-0">
+          <button data-intent="${it.cta}" class="w-full px-5 py-3.5 flex items-center gap-4 text-left hover:bg-surface-hover group">
+            <span class="h-10 w-10 shrink-0 rounded-lg bg-surface-sunken grid place-items-center text-tx-secondary group-hover:bg-surface-raised"><i data-lucide="${it.icon}"></i></span>
+            <span class="flex-1 min-w-0"><span class="block font-medium text-tx-primary">${it.t}</span><span class="block text-xs text-tx-muted mt-0.5">${it.d}</span></span>
+            <span class="hidden sm:inline text-xs font-medium text-tx-link">${it.cta}</span><span class="text-tx-muted ic-16"><i data-lucide="chevron-right"></i></span>
+          </button></li>`).join('')}</ul>
+        <div class="px-5 py-3 border-t border-bd-default text-xs text-tx-muted">Pilihan ini bisa diubah kapan saja. Kami pakai untuk menyesuaikan beranda kamu.</div>`)}
+      ${myContent()}
+      ${suggestions()}
+    </div>
+    <aside class="hidden xl:block w-80 shrink-0 space-y-4 sticky top-20">${showCL?checklistCompact():''}${profileCard()}${railFooter}</aside>
+  </div>`;
+}
+
+function dashLoading(){
+  const blk = (h)=>`<div class="bg-surface-raised border border-bd-default rounded-xl p-5 space-y-3">${h}</div>`;
+  return `<div class="flex gap-6 items-start" aria-busy="true" aria-label="Memuat dashboard">
+    <div class="flex-1 max-w-[736px] space-y-4">
+      <div class="space-y-2 mb-5"><div class="skeleton h-3 w-32"></div><div class="skeleton h-7 w-64"></div><div class="skeleton h-4 w-96 max-w-full"></div></div>
+      ${blk(`<div class="skeleton h-5 w-56"></div><div class="skeleton h-2 w-full"></div>${'<div class="flex gap-3 items-center"><div class="skeleton h-7 w-7 rounded-full"></div><div class="skeleton h-4 flex-1"></div></div>'.repeat(4)}`)}
+      ${blk(`<div class="skeleton h-5 w-40"></div><div class="skeleton h-24 w-full"></div>`)}
+    </div>
+    <aside class="hidden xl:block w-80 space-y-4">${blk('<div class="skeleton h-12 w-12 rounded-full"></div><div class="skeleton h-4 w-40"></div><div class="skeleton h-2 w-full"></div>')}</aside></div>`;
+}
+
+function dashError(){
+  return `<div class="max-w-[736px]">${greeting('')}
+    <div role="alert" class="rounded-xl border border-err-border bg-err-surface p-5 flex gap-3">
+      <span class="text-err-text"><i data-lucide="circle-alert"></i></span>
+      <div class="flex-1"><p class="font-bold text-err-text">Dashboard gagal dimuat</p>
+        <p class="text-tx-secondary mt-1">Koneksi terputus atau server sedang sibuk. Konten kamu aman, tidak ada yang hilang.</p>
+        <div class="mt-3 flex gap-2">${btnPrimary('<i data-lucide="rotate-cw" class="ic-16"></i>Coba lagi','data-retry')}${btnSecondary('Pusat Bantuan')}</div></div></div></div>`;
+}
+
+function placeholder(){
+  const n = NAV.find(x=>x.id===S.page);
+  return `<div class="max-w-[736px]"><h1 class="text-xl md:text-2xl font-bold leading-8 mb-5">${n.label}</h1>
+    ${card(`<div class="px-6 py-12 text-center">
+      <span class="mx-auto h-12 w-12 rounded-full bg-surface-sunken grid place-items-center text-tx-muted"><i data-lucide="${n.icon}"></i></span>
+      <p class="font-bold mt-3">Halaman ${n.label} masuk di step berikutnya</p>
+      <p class="text-tx-muted mt-1 max-w-[380px] mx-auto">Shell dan navigasi sudah aktif. Isi halaman ini akan didesain di iterasi selanjutnya sesuai sitemap.</p>
+      <div class="mt-4">${btnSecondary('Kembali ke Beranda','data-nav="dashboard"')}</div></div>`)}</div>`;
+}
+
+function renderPage(){
+  let html;
+  if(S.page!=='dashboard') html = placeholder();
+  else if(S.status==='loading') html = dashLoading();
+  else if(S.status==='error') html = dashError();
+  else html = S.dir==='A' ? dashA() : dashB();
+  $('#page').innerHTML = html;
+}
+
+function renderProto(){
+  document.querySelectorAll('#protoPanel [data-group]').forEach(g=>{
+    const key=g.dataset.group;
+    g.querySelectorAll('button').forEach(b=>{
+      const on = S[key]===b.dataset.v;
+      b.className = 'h-8 rounded-md border ' + (on?'bg-slate-900 text-white border-slate-900':'border-slate-300 hover:bg-slate-100');
+      b.setAttribute('aria-pressed', on);
+    });
+  });
+}
+
+function render(){ document.documentElement.dataset.theme=S.theme; renderShell(); renderPage(); renderProto(); icons(); }
+
+/* ---------- EVENTS ---------- */
+function closeMenus(except){ ['Create','Notif','Avatar'].forEach(k=>{ if(k===except) return; $('#menu'+k).classList.add('hidden'); $('#btn'+k).setAttribute('aria-expanded','false'); }); }
+function toggleMenu(k){ const m=$('#menu'+k), open=m.classList.contains('hidden'); closeMenus(k); m.classList.toggle('hidden',!open); $('#btn'+k).setAttribute('aria-expanded',open); }
+
+document.addEventListener('click', e=>{
+  const t = e.target.closest('button, a');
+  if(!e.target.closest('#menuCreate,#btnCreate,#menuNotif,#btnNotif,#menuAvatar,#btnAvatar')) closeMenus();
+  if(!t) return;
+  if(t.id==='btnCreate'){ toggleMenu('Create'); return; }
+  if(t.id==='btnNotif'){ toggleMenu('Notif'); return; }
+  if(t.id==='btnAvatar'){ toggleMenu('Avatar'); return; }
+  if(t.id==='btnDrawer'){ $('#drawer').classList.remove('hidden'); return; }
+  if(t.hasAttribute('data-close-drawer')){ $('#drawer').classList.add('hidden'); return; }
+  if(t.id==='protoToggle'){ $('#protoPanel').classList.toggle('hidden'); return; }
+  if(t.closest('#protoPanel [data-group]')){ S[t.closest('[data-group]').dataset.group]=t.dataset.v; S.page='dashboard';
+    if(t.dataset.v==='new'){ S.done=new Set(['email']); S.following.clear(); S.checklistHidden=false; }
+    if(t.dataset.v==='partial'){ S.done=new Set(['email','profile','business']); S.checklistHidden=false; }
+    render(); return; }
+  if(t.dataset.nav){ e.preventDefault(); S.page=t.dataset.nav; $('#drawer').classList.add('hidden'); render(); window.scrollTo(0,0); return; }
+  if(t.hasAttribute('data-open-create')){ if(window.innerWidth<768) toast('Menu Buat (Post · Listing · Peluang · Halaman) didesain di Step 4'); else { toggleMenu('Create'); } e.stopPropagation(); return; }
+  if(t.dataset.create){ closeMenus(); toast(`Buat ${t.dataset.create}: alurnya didesain di Step 4`); return; }
+  if(t.dataset.doStep){ S.done.add(t.dataset.doStep); if(t.dataset.doStep==='follow') ['Rempah Nusantara Trading','Diaspora Indonesia Melbourne','Jepara Teak Furniture'].forEach(x=>S.following.add(x));
+    const s=STEPS.find(x=>x.id===t.dataset.doStep); render(); toast(`Disimulasikan: "${s.t}" selesai`); return; }
+  if(t.dataset.intent){ toast(`${t.dataset.intent}: alurnya menyusul di step berikutnya`); return; }
+  if(t.dataset.follow){ const n=t.dataset.follow; S.following.has(n)?S.following.delete(n):S.following.add(n);
+    if(S.following.size>=3) S.done.add('follow'); render(); toast(S.following.has(n)?`Kamu mengikuti ${n}`:`Berhenti mengikuti ${n}`); return; }
+  if(t.hasAttribute('data-hide-checklist')){ S.checklistHidden=true; render(); toast('Panduan disembunyikan'); return; }
+  if(t.hasAttribute('data-show-checklist')){ S.checklistHidden=false; render(); return; }
+  if(t.hasAttribute('data-retry')){ S.status='loading'; render(); setTimeout(()=>{ S.status='new'; render(); },1200); return; }
+  if(t.getAttribute('href')==='#') e.preventDefault();
+});
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape'){ closeMenus(); $('#drawer').classList.add('hidden'); }
+  if(e.key==='/' && document.activeElement.tagName!=='INPUT'){ e.preventDefault(); document.querySelector('header input[type=search]')?.focus(); }
+});
+
+render();
+</script>
+</body>
+</html>

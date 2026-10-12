@@ -4,6 +4,8 @@ import tabletSolutionsImg from '../assets/tablet-solutions-content.png'
 import microTouchContentImg from '../assets/tablet-microtouch-content.webp'
 import eFormContentImg from '../assets/tablet-eform-content.webp'
 import { ShowcaseSection } from '../components/ShowcaseSection'
+import { CtaSection } from '../components/CtaSection'
+import { ctaContent } from '../data/ctaContent'
 
 export const TabletSolutionsPage: React.FC = () => {
   const navigate = useNavigate()
@@ -68,6 +70,7 @@ export const TabletSolutionsPage: React.FC = () => {
         imageAspect={2928 / 1503}
       />
 
+      <CtaSection {...ctaContent.tabletSolutions} />
     </div>
   )
 }

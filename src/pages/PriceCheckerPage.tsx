@@ -2,6 +2,8 @@ import React from 'react'
 import overviewImg from '../assets/price-checker-overview.webp'
 import revenueImg from '../assets/price-checker-revenue.webp'
 import { BackHeader } from '../components/BackHeader'
+import { CtaSection } from '../components/CtaSection'
+import { ctaContent } from '../data/ctaContent'
 
 export const PriceCheckerPage: React.FC = () => (
   <div className="relative w-full h-full pb-safe bg-white text-slate-900 flex flex-col select-none overflow-y-auto overflow-x-hidden">
@@ -29,6 +31,7 @@ export const PriceCheckerPage: React.FC = () => (
         />
       </div>
     </section>
+    <CtaSection {...ctaContent.priceChecker} />
   </div>
 )
 

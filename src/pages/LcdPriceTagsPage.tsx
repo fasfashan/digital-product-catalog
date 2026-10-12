@@ -7,6 +7,8 @@ import pharmacyImg from '../assets/lcd-price-tags-pharmacy.webp'
 import famiSuperVideo from '../assets/lcd-price-tags-famisuper-tomang.mp4'
 import { BackHeader } from '../components/BackHeader'
 import { KioskVideo } from '../components/KioskVideo'
+import { CtaSection } from '../components/CtaSection'
+import { ctaContent } from '../data/ctaContent'
 
 interface LcdSection {
   title: string
@@ -118,6 +120,7 @@ export const LcdPriceTagsPage: React.FC = () => (
         <KioskVideo src={famiSuperVideo} />
       </div>
     </section>
+    <CtaSection {...ctaContent.lcdPriceTags} />
   </div>
 )
 

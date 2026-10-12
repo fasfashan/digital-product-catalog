@@ -6,6 +6,8 @@ import adFeaturesImg from '../assets/smartcs-ad-features.png'
 import adKioskImg from '../assets/smartcs-ad-kiosk.png'
 import successStoryImg from '../assets/smartcs-success-story.webp'
 import { ShowcaseSection } from '../components/ShowcaseSection'
+import { CtaSection } from '../components/CtaSection'
+import { ctaContent } from '../data/ctaContent'
 
 export const SmartCSPage: React.FC = () => {
   const navigate = useNavigate()
@@ -176,6 +178,8 @@ export const SmartCSPage: React.FC = () => {
         imageAlt="Over 110 units of CS Digital implemented at BTN, with on-going prospect projects at BNI, Mandiri, BSI, BCA, Bank Sinarmas, AGI, Bank Jakarta, and Bank Nagari"
         imageAspect={2982 / 1312}
       />
+
+      <CtaSection {...ctaContent.smartcs} />
 
     </div>
   )

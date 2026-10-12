@@ -5,6 +5,8 @@ import cdmUsecase1Img from '../assets/cdm-usecase1-hub.png'
 import cdmUsecase2Img from '../assets/cdm-usecase2-payment.png'
 import cashPoolingNetworkImg from '../assets/cdm-cash-pooling-network.png'
 import benefitsGrowthImg from '../assets/cdm-benefits-growth.png'
+import { CtaSection } from '../components/CtaSection'
+import { ctaContent } from '../data/ctaContent'
 
 const bankBenefits = [
   {
@@ -144,6 +146,7 @@ export const MultiDenomCDMPage: React.FC = () => {
           </div>
         </section>
       </main>
+      <CtaSection {...ctaContent.multiDenomCdm} />
     </div>
   )
 }

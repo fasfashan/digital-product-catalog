@@ -3,6 +3,8 @@ import contentImg from '../assets/robot-greeter-content.webp'
 import puduRobotVideo from '../assets/robot-greeter-pudu.mp4'
 import { BackHeader } from '../components/BackHeader'
 import { KioskVideo } from '../components/KioskVideo'
+import { CtaSection } from '../components/CtaSection'
+import { ctaContent } from '../data/ctaContent'
 
 export const RobotGreeterPage: React.FC = () => (
   <div className="relative w-full h-full pb-safe bg-white text-slate-900 flex flex-col select-none overflow-y-auto overflow-x-hidden">
@@ -26,6 +28,7 @@ export const RobotGreeterPage: React.FC = () => (
         <KioskVideo src={puduRobotVideo} />
       </div>
     </section>
+    <CtaSection {...ctaContent.robotGreeter} />
   </div>
 )
 
